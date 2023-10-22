@@ -37,7 +37,7 @@ import lxml
 import os
 import pandas as pd
 import requests
-import time # for sleep
+import time
 
 # Set variables.
 

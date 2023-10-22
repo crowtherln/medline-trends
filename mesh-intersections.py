@@ -53,7 +53,7 @@ mesh_1 = "Quality of Life"
 mesh_2 = "Education, Medical, Graduate"
 
 # Establish the first year of literature you want to be searched.
-start_year = 1975 # You may want to change this (see below).
+start_year = 1966 # You may want to change this (see below).
 """ 
 The default start year is 1966 because that is the year from which
     MEDLINE-indexed literature more consistently had MeSH headings

@@ -11,32 +11,49 @@ BACKGROUND: "MEDLINE is the National Library of Medicine's (NLM)
     articles for PubMed.
 
 SUMMARY: This program determines how much MEDLINE-indexed literature
-    was published each year at the intersection of two MeSH headings.
-    ("MeSH headings" is technically redundant, but NLM uses the term,
-    so I will, too.) That is, it determines how many citations from
-    each year were indexed that were tagged with both MeSH headings. It
-    produces a two-field CSV file with year of publication and number
-    of citations.
+    was published each year at the intersection of two MeSH--that is,
+    it determines how many MEDLINE-indexed citations from each year
+    were tagged with both MeSH. It produces a four-field CSV file. The
+    fields include (1) the year of publication and (2) the number of
+    citations at the intersection. However, because the number of
+    MEDLINE-indexed citations has generally trended upwards year-over-
+    year, this value can be misleading, so two more fields were added:
+    (3) the total number of MEDLINE-indexed citations published that
+    year and (4) the number of intersecting citations per 1,000 total
+    citations.
 
 USER ACTION ITEMS: Users need to do the following:
-    1) Specify where to save the CSV file (see lines 44-46).
-    2) Indicate which two MeSH headings they want the program to look
-        at (see lines 48-53).
+    1) Specify where to save the CSV file (see lines 61-63).
+    2) Indicate which two MeSH they want the program to look at (see
+        lines 65-70).
     3) Determine whether they need to change the first year of
-        literature for the program to search (see lines 55-74).
+        literature for the program to search (see lines 72-95).
     4) (Optional) Decide if they want to override the default for the
         last year of literature for the program to search. The default
         is the last year that has been completed for at least three
-        months (see lines 83-91)."""
+        months (see lines 104-111)."""
 
 # Import libraries.
 
+# The URLs that this program creates are XML files. The bs4 module is
+    # used to pull data from them.
 from bs4 import BeautifulSoup
+# The datetime module is used to establish a default end year and to
+    # create a filename for the CSV file.
 from datetime import date
+# The lxml module parses the XML files.
 import lxml
+# The os module is used to save the CSV file to the user's computer.
 import os
+# The pandas module is used to create a dataframe out of the list of
+    # dictionaries that the for loop produces. The dataframe is what
+    # gets written to the CSV file.
 import pandas as pd
+# The requests module is used to connect to the internet and submit a
+    # GET request to each URL that this program creates.
 import requests
+# The time module is used to pause the program between GET requests to
+    # avoid overloading the server.
 import time
 
 # Set variables.
@@ -45,33 +62,37 @@ import time
     # backslashes between each folder or drive.
 path = "C:\\\\Users\\\\rastley\\\\Downloads"
 
-# Specify which two MeSH headings you want the program to look at the
-    # intersection of. You can search for MeSH headings here:
+# Specify which two MeSH you want the program to look at the
+    # intersection of. You can search for MeSH here:
     # https://www.ncbi.nlm.nih.gov/mesh/. Make sure to keep the MeSH
-    # headings within quotation marks.
-mesh_1 = "Quality of Life"
-mesh_2 = "Education, Medical, Graduate"
+    # within quotation marks.
+mesh_1 = "Public Health"
+mesh_2 = "Communication"
 
 # Establish the first year of literature you want to be searched.
 start_year = 1966 # You may want to change this (see below).
 """ 
 The default start year is 1966 because that is the year from which
-    MEDLINE-indexed literature more consistently had MeSH headings
-    applied (https://www.nlm.nih.gov/medline/medline_overview.html).
-    (For information on MEDLINE-indexed literature from earlier, see
+    MEDLINE-indexed literature more consistently had MeSH applied
+    (https://www.nlm.nih.gov/medline/medline_overview.html). (For
+    information on MEDLINE-indexed literature from earlier, see
     https://www.nlm.nih.gov/databases/databases_oldmedline.html.)
-Because not all MeSH headings are applied back to 1966, YOU MAY WISH TO
-    CHANGE THE START YEAR. You can use the MeSH database
+Because not all MeSH are applied back to 1966, YOU MAY NEED TO CHANGE
+    THE START YEAR. You can use the MeSH database
     (https://www.ncbi.nlm.nih.gov/mesh/) to tell how far back a heading
     has been applied. For example, when I search for "Workforce," I see
     that it says "Year introduced: 2019(1968)." This means that the
-    term was introduced in 2019, but the MeSH heading has been
-    retroactively applied to literature dating back to 1968. When I
-    search for "Sequence Analysis," I see that the term was not
-    introduced until 1993. If I wanted data from the intersection of
-    the two terms, the latter of the two years is the earliest I might
-    find any intersecting literature, so I will want to change
-    start_year to 1993."""
+    term was introduced in 2019, but the heading has been retroactively
+    applied to literature dating back to 1968, so 1968 is the year we
+    are interested in for this project. If the "Year introduced" field
+    doesn't have a year in parentheses, that means that the heading has
+    been applied only to citations of literature published after the
+    heading was introduced. For example, when I search for "Sequence
+    Analysis," it just says, "Year introduced: 1993." If I wanted data
+    from the intersection of "Workforce" and "Sequence Analysis," the
+    latter of the two years is the earliest I might find any
+    intersecting literature, so I would want to change start_year to
+    1993."""
 
 # Establish the last year of literature you want to be searched.
 today = date.today()
@@ -83,49 +104,90 @@ else:
 To make years more comparable, the default end year is the most
     recently completed year that has been over for at least three
     months. That allows some time for literature published toward the
-    end of the year to be indexed in MEDLINE and tagged with MeSH
-    headings.
+    end of the year to be indexed in MEDLINE and tagged with MeSH.
 If you prefer a different end year, remove the hash and space from the
     beginning of line 91 and replace the value with the last year of
     literature you want to be searched."""
-# end_year = 2000 # Custom end year (see lines 83-90)
+# end_year = 2000 # Custom end year (see lines 104-110)
 
-# Build the URL components.
-url_pt_1 = "https://eutils.ncbi.nlm.nih.gov/"
-url_pt_2 = "entrez/eutils/esearch.fcgi?db=pubmed&term=\""
-url_pt_3 = mesh_1.replace(" ", "+") # Replace spaces with pluses.
-url_pt_3 = url_pt_3.replace(",", "%2C") # Encode commas for URL.
-url_pt_4 = "[mh]+AND+\""
-url_pt_5 = mesh_2.replace(" ", "+") # Replace spaces with pluses.
-url_pt_5 = url_pt_5.replace(",", "%2C") # Encode commas for URL.
-url_pt_6 = "[mh]+AND+"
+# Build the components for the intersection URLs.
+x_url_pt_1 = "".join([
+    # Start of URL as shown in "Searching a Database" section of this
+        # guide: https://www.ncbi.nlm.nih.gov/books/NBK25500/.
+    "https://eutils.ncbi.nlm.nih.gov/",
+    "entrez/eutils/esearch.fcgi?db=pubmed&term=\"",
+    # Add first MeSH. Encode spaces and commas.
+    mesh_1.replace(" ", "+").replace(",", "%2C"),
+    # Add field code and Boolean operator.
+    "[mh]+AND+\"",
+    # Add second MeSH. Encode spaces and commas.
+    mesh_2.replace(" ", "+").replace(",", "%2C"),
+    # Add field code and Boolean operator.
+    "[mh]+AND+"])
+# x_url_pt_2 is the publication year. It will be added in the for loop
+    # that begins in line 147.
+# Add the field code for the publication year.
+x_url_pt_3 = "[pdat]"
 
-# Combine first six parts.
-url_pt_a = url_pt_1 + url_pt_2 + url_pt_3 + url_pt_4 + url_pt_5 + url_pt_6
-# The next part with be the year, which will get added in the for loop
-    # that begins in line 115.
-# Name the final part of the URL.
-url_pt_c = "[pdat]"
+# Build the components for the year URLs.
+yr_url_pt_1 = "".join([
+    # Start of URL as shown in "Searching a Database" section of this
+        # guide: https://www.ncbi.nlm.nih.gov/books/NBK25500/.
+    "https://eutils.ncbi.nlm.nih.gov/",
+    "entrez/eutils/esearch.fcgi?db=pubmed&term="])
+# yr_url_pt_2 is the publication year. It will be added in the for loop
+    # that begins in line 147.
+# Add the field code for the publication year.
+yr_url_pt_3 = "[pdat]"
 
 # Create a list to which to add dictionaries for each year.
 mesh_intersections = []
 
-# Loop through each year and determine how many citations are indexed
-    # for that year that include both MeSH headings.
-for pub_year in range(start_year, end_year + 1):
-    url = url_pt_a + str(pub_year) + url_pt_c #  Put the URL together.
-    response = requests.get(url)
-    data = response.text
-    soup = BeautifulSoup(data, features="xml")
-    count = int(soup.find("Count").text)
+# Loop through each year.
+for yr in range(start_year, end_year + 1):
+    # Put the URL together to search for data on all citations indexed
+        # by MEDLINE during that year.
+    yr_url = "".join([yr_url_pt_1, str(yr), yr_url_pt_3])
+    # Send a GET request to the URL.
+    yr_response = requests.get(yr_url)
+    # Get the content of the response.
+    yr_data = yr_response.text
+    # Create a BeautifulSoup object, using lxml's XML parser.
+    yr_soup = BeautifulSoup(yr_data, features = "xml")
+    # Scrape the value of the "Count" attribute.
+    medline_count = int(yr_soup.find("Count").text)
+    # Wait two seconds to avoid flooding the server.
+    time.sleep(2)
+    # Put the URL together to search for data on citations from the
+        # indicated year that are indexed with both specified MeSH.
+    x_url = "".join([x_url_pt_1, str(yr), x_url_pt_3])
+    # Send a GET request to the URL.
+    x_response = requests.get(x_url)
+    # Get the content of the response.
+    x_data = x_response.text
+    # Create a BeautifulSoup object, using lxml's XML parser.
+    x_soup = BeautifulSoup(x_data, features= "xml")
+    # Scrape the value of the "Count" attribute.
+    x_count = int(x_soup.find("Count").text)
+    # Create a dictionary for the values you want to add to the CSV
+        # file. Add the dictionary to the list created in line 124. ###############################
     mesh_intersections.append({
-        "year": pub_year,
-        "citations": count})
-    time.sleep(2) # Wait two seconds to avoid flooding the server.
+        # Indicate the year the cited documents were published.
+        "publication_year": yr,
+        # Note how many MEDLINE-indexed citations include both MeSH.
+        "intersecting_citations": x_count,
+        # Note how many MEDLINE citations in total were indexed.
+        "total_citations": medline_count,
+        # Note how many MEDLINE-indexed citations that include both
+            # MeSH there were per 1,000 total MEDLINE citations.
+        "intersecting_citations_per_1k": round(
+            x_count / medline_count * 1000, 2)})
+    # Wait two seconds to avoid flooding the server.
+    time.sleep(2)
 
 # Create a filename.
 filename = "".join([
-    f"mesh-intersection_{mesh_1}_{mesh_2}_{start_year}-{end_year}_",
+    f"{mesh_1}-AND-{mesh_2}_{start_year}-{end_year}_",
     str(today.year), "-", "{:02d}".format(today.month), "-", 
     "{:02d}".format(today.day), ".csv"])
 

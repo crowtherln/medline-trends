@@ -17,6 +17,13 @@ NLM uses Medical Subject Headings (MeSH) as controlled vocabulary to index its c
 
 ### mesh-intersections.py
 
-[mesh-intersections.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections.py "medline-trends/mesh-intersections.py at main • crowtherln/medline-trends") finds how many MEDLINE-indexed citations from each year were tagged with two specific MeSH. The values might serve as a proxy for interest or publication activity. One purpose of the program might be to see when interest in a particular intersection has peaked and waned, to consider what world events might have contributed to that, and to identify areas for further investigation.
+[mesh-intersections.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections.py "medline-trends/mesh-intersections.py at main • crowtherln/medline-trends") finds how many MEDLINE-indexed citations from each year were tagged with two specific MeSH. It produces a CSV file with four fields:
 
-CAUTION: The values this program produces are not a perfect proxy, for several reasons. For example, MeSH are not perfectly applied. The number of articles indexed by MEDLINE does not remain static year over year, so an increase might simply mean that more articles overall were indexed, not necessarily that there is more interest in the intersection.
+1. The year of publication
+2. The number of "intersecting citations"—that is, the number of MEDLINE-indexed citations from that year that were tagged with both specified MeSH
+3. The total number of MEDLINE-indexed citations published that year
+4. The number of intersecting citations per 1,000 total citations
+
+These values might serve as a proxy for interest or publication activity. One potential use case might be to see when interest in a particular intersection has peaked and waned, to consider what world events might have contributed to that, and to identify areas for further investigation.
+
+CAUTION: Relying solely on field (2) may be misleading, because field (3) has varied considerably over time. In general, there has been a strong upward trend. For example, there are 219,000 MEDLINE-indexed citations from 1970 but 1.639 million from 2020. This led to the addition of fields (3) and (4) to get a better sense of trends at an intersection while filtering out some of the noise from changes in MEDLINE indexing volumes.

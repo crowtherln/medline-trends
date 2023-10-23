@@ -27,3 +27,5 @@ NLM uses Medical Subject Headings (MeSH) as controlled vocabulary to index its c
 These values might serve as a proxy for interest or publication activity. One potential use case might be to see when interest in a particular intersection has peaked and waned, to consider what world events might have contributed to that, and to identify areas for further investigation.
 
 CAUTION: Relying solely on field (2) may be misleading, because field (3) has varied considerably over time. In general, there has been a strong upward trend. For example, there are 219,000 MEDLINE-indexed citations from 1970 but 1.639 million from 2020. This led to the addition of fields (3) and (4) to get a better sense of trends at an intersection while filtering out some of the noise from changes in MEDLINE indexing volumes.
+
+Users need to edit 3–5 lines of code to use this program. Instructions are provided at the beginning of the file.

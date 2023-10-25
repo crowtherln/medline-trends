@@ -41,14 +41,14 @@ from bs4 import BeautifulSoup
 # The datetime module is used to establish a default end year and to
     # create a filename for the CSV file.
 from datetime import date
-# The lxml module parses the XML files.
-import lxml
 # The os module is used to save the CSV file to the user's computer.
 import os
 # The pandas module is used to create a dataframe out of the list of
     # dictionaries that the for loop produces. The dataframe is what
     # gets written to the CSV file.
 import pandas as pd
+# The random module is used to randomize wait times between requests.
+import random
 # The requests module is used to connect to the internet and submit a
     # GET request to each URL that this program creates.
 import requests
@@ -156,8 +156,8 @@ for yr in range(start_year, end_year + 1):
     yr_soup = BeautifulSoup(yr_data, features = "xml")
     # Scrape the value of the "Count" attribute.
     medline_count = int(yr_soup.find("Count").text)
-    # Wait two seconds to avoid flooding the server.
-    time.sleep(2)
+    # Wait 2-4 seconds to avoid flooding the server.
+    time.sleep(random.randint(2,4))
     # Put the URL together to search for data on citations from the
         # indicated year that are indexed with both specified MeSH.
     x_url = "".join([x_url_pt_1, str(yr), x_url_pt_3])
@@ -170,7 +170,7 @@ for yr in range(start_year, end_year + 1):
     # Scrape the value of the "Count" attribute.
     x_count = int(x_soup.find("Count").text)
     # Create a dictionary for the values you want to add to the CSV
-        # file. Add the dictionary to the list created in line 124. ###############################
+        # file. Add the dictionary to the list created in line 124.
     mesh_intersections.append({
         # Indicate the year the cited documents were published.
         "publication_year": yr,
@@ -182,8 +182,8 @@ for yr in range(start_year, end_year + 1):
             # MeSH there were per 1,000 total MEDLINE citations.
         "intersecting_citations_per_1k": round(
             x_count / medline_count * 1000, 2)})
-    # Wait two seconds to avoid flooding the server.
-    time.sleep(2)
+    # Wait 2-4 seconds to avoid flooding the server.
+    time.sleep(random.randint(2,4))
 
 # Create a filename.
 filename = "".join([

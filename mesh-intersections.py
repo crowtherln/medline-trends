@@ -106,7 +106,7 @@ To make years more comparable, the default end year is the most
     months. That allows some time for literature published toward the
     end of the year to be indexed in MEDLINE and tagged with MeSH.
 If you prefer a different end year, remove the hash and space from the
-    beginning of line 91 and replace the value with the last year of
+    beginning of line 111 and replace the value with the last year of
     literature you want to be searched."""
 # end_year = 2000 # Custom end year (see lines 104-110)
 

@@ -29,6 +29,11 @@ The values produced by these programs might serve as a proxy for interest or pub
 
 For [mesh-intersections.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections.py "medline-trends/mesh-intersections.py at main • crowtherln/medline-trends"), the user chooses two MeSH, and the program finds how many MEDLINE-indexed citations from each year were tagged with two both of them. It takes around 6-8 minutes to run. Users need to edit 3–5 lines of code. See the program for additional details.
 
-### mesh-intersections_physician-subsets.py
+### mesh-intersections_physicians.py
 
-For [mesh-intersections_physician-subsets.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections_physician-subsets.py "medline-trends/mesh-intersections_physician-subsets.py at main • crowtherln/medline-trends"), the user chooses one MeSH, which is intersected with "[Physicians](https://www.ncbi.nlm.nih.gov/mesh/68010820 "Physicians - MeSH - NCBI")" and all MeSH one level under "Physicians." It takes around 12-15 minutes to run. Users need to edit 2-4 lines of code. See the program for additional details.
+For [mesh-intersections_physicians.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections_physicians.py "medline-trends/mesh-intersections_physicians.py at main • crowtherln/medline-trends"), the user chooses one MeSH, which is intersected with "[Physicians](https://www.ncbi.nlm.nih.gov/mesh/68010820 "Physicians - MeSH - NCBI")" and all MeSH one level under it. It takes around 12-15 minutes to run. Users need to edit 2-4 lines of code. See the program for additional details.
+
+### mesh-intersections_health-personnel.py
+
+For [mesh-intersections_health-personnel.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections_health-personnel.py "medline-trends/mesh-intersections_health-personnel.py at main • crowtherln/medline-trends"), the user chooses one MeSH, which is intersected with "[Health Personnel](https://www.ncbi.nlm.nih.gov/mesh/68006282) "Health Personnel - MeSH - NCBI")" and all MeSH 1-2 levels under it. It takes around 40-50 minutes to run. Users need to edit 2-4 lines of code. See the program for additional details.
+

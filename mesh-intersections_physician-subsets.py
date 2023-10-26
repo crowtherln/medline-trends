@@ -32,7 +32,7 @@ SUMMARY: With this program, the user selects a MeSH. The program
     (5) total_medline_citations: The total number of MEDLINE-indexed
         citations published that year
 
-DURATION: This program may take around 15 minutes to run. This is
+DURATION: This program may take around 12-15 minutes to run. This is
     primarily due to the sleep time built in between each GET request
     to avoid overloading the server. However, I do not know what NCBI's
     rate limit is; I simply set up the program to wait 2-4 seconds

@@ -19,9 +19,7 @@ NLM uses Medical Subject Headings (MeSH) as controlled vocabulary to index its c
 
 These programs produce CSV files with data on the number of "intersecting citations" from each year—that is, the number of MEDLINE-indexed citations from the year that were tagged with combinations of specific MeSH. However, this variable alone can be misleading. Later years tend to have more MEDLINE-indexed citations than earlier years. For example, there are 219,000 MEDLINE-indexed citations from 1970 but 1.639 million from 2020. To filter out some of the noise from changes in MEDLINE indexing volumes, I added a field for the number of intersecting citations per 1,000 total MEDLINE-indexed citations from a given year.
 
-The data produced by these programs might serve as a proxy for interest or publication activity.
-
-Potential use cases:
+The data produced by these programs might serve as a proxy for interest or publication activity. Some potential use cases:
 
 * Comparing medical specialties
 * Seeing when interest in a particular intersection has peaked and waned, considering what world events might have contributed to that, and identifying areas for further investigation

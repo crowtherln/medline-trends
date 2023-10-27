@@ -15,6 +15,8 @@ NLM uses Medical Subject Headings (MeSH) as controlled vocabulary to index its c
 
 ## Programs
 
+## mesh-intersections
+
 These programs find how many MEDLINE-indexed citations from each year were tagged with combinations of specific MeSH. They produce CSV files with data like the following:
 
 * The year of publication
@@ -25,15 +27,20 @@ These programs find how many MEDLINE-indexed citations from each year were tagge
 
 The values produced by these programs might serve as a proxy for interest or publication activity. One potential use case might be to see when interest in a particular intersection has peaked and waned, to consider what world events might have contributed to that, and to identify areas for further investigation.
 
-### mesh-intersections.py
+#### [mesh-intersections.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections.py "medline-trends/mesh-intersections.py at main • crowtherln/medline-trends")
 
-For [mesh-intersections.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections.py "medline-trends/mesh-intersections.py at main • crowtherln/medline-trends"), the user chooses two MeSH, and the program finds how many MEDLINE-indexed citations from each year were tagged with two both of them. It takes around 6-8 minutes to run. Users need to edit 3–5 lines of code. See the program for additional details.
+* Intersections investigated: 2 user-selected MeSH
+* Lines of code to edit: 3-5
+* Approximate duration: 3 minutes if the default start year is used
 
-### mesh-intersections_physicians.py
+#### [mesh-intersections_physicians.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections_physicians.py "medline-trends/mesh-intersections_physicians.py at main • crowtherln/medline-trends")
 
-For [mesh-intersections_physicians.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections_physicians.py "medline-trends/mesh-intersections_physicians.py at main • crowtherln/medline-trends"), the user chooses one MeSH, which is intersected with "[Physicians](https://www.ncbi.nlm.nih.gov/mesh/68010820 "Physicians - MeSH - NCBI")" and all MeSH one level under it. It takes around 12-15 minutes to run. Users need to edit 2-4 lines of code. See the program for additional details.
+* Intersections investigated: 1 user-selected MeSH with "[Physicians](https://www.ncbi.nlm.nih.gov/mesh/68010820 "Physicians - MeSH - NCBI")" and all 30 MeSH one level under it
+* Lines of code to edit: 2-4
+* Approximate duration: 4 minutes
 
-### mesh-intersections_health-personnel.py
+#### [mesh-intersections_health-personnel.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections_health-personnel.py "medline-trends/mesh-intersections_health-personnel.py at main • crowtherln/medline-trends")
 
-For [mesh-intersections_health-personnel.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections_health-personnel.py "medline-trends/mesh-intersections_health-personnel.py at main • crowtherln/medline-trends"), the user chooses one MeSH, which is intersected with "[Health Personnel](https://www.ncbi.nlm.nih.gov/mesh/68006282) "Health Personnel - MeSH - NCBI")" and all MeSH 1-2 levels under it. It takes around 40-50 minutes to run. Users need to edit 2-4 lines of code. See the program for additional details.
-
+* Intersections investigated: 1 user-selected MeSH with "[Health Personnel](https://www.ncbi.nlm.nih.gov/mesh/68006282) "Health Personnel - MeSH - NCBI")" and all 95 MeSH 1-2 levels under it
+* Lines of code to edit: 2-4
+* Approximate duration: 11 minutes

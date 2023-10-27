@@ -26,17 +26,22 @@ Note that approximate durations below assume the default start and end years and
 #### [mesh-intersections.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections.py "medline-trends/mesh-intersections.py at main • crowtherln/medline-trends")
 
 * Intersections investigated: 2 user-selected MeSH
-* Lines of code to edit: 3-5
+* Lines of code to edit: 3–5
+* Default years covered: 1966–last year\*
 * Approximate duration: 3 minutes
 
 #### [mesh-intersections_physicians.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections_physicians.py "medline-trends/mesh-intersections_physicians.py at main • crowtherln/medline-trends")
 
 * Intersections investigated: 1 user-selected MeSH with "[Physicians](https://www.ncbi.nlm.nih.gov/mesh/68010820 "Physicians - MeSH - NCBI")" and all 30 MeSH one level under it
-* Lines of code to edit: 2-4
+* Lines of code to edit: 2–4
+* Default years covered: 2017–last year\*
 * Approximate duration: 4 minutes
 
 #### [mesh-intersections_health-personnel.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections_health-personnel.py "medline-trends/mesh-intersections_health-personnel.py at main • crowtherln/medline-trends")
 
 * Intersections investigated: 1 user-selected MeSH with "[Health Personnel](https://www.ncbi.nlm.nih.gov/mesh/68006282 "Health Personnel - MeSH - NCBI")" and all 95 MeSH 1-2 levels under it
-* Lines of code to edit: 2-4
+* Lines of code to edit: 2–4
+* Default years covered: 2017–last year\*
 * Approximate duration: 11 minutes
+
+\* More precisely, the end year for these programs is the most recent year that has been completed for at least three months. This allows some time for literature published toward the end of the year to be indexed in MEDLINE and tagged with MeSH and makes years more comparable.

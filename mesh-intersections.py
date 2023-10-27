@@ -23,7 +23,7 @@ SUMMARY: This program determines how much MEDLINE-indexed literature
     citations.
 
 DURATION: For a pair of MeSH going back to 1966, this program may take
-    around 3 minutes to run. This is primarily due to the sleep time
+    around 3 minutes to run. This is due in part to the sleep time
     built in between each GET request to avoid overloading the server.
     I set up the program to wait 0.5 seconds between each request,
     which is slightly longer than the NCBI minimum recommended here:

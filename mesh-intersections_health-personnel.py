@@ -32,28 +32,24 @@ SUMMARY: With this program, the user selects a MeSH. The program
     (5) total_medline_citations: The total number of MEDLINE-indexed
         citations published that year
 
-DURATION: This program may take around 40-50 minutes to run. This is
-    primarily due to the sleep time built in between each GET request
-    to avoid overloading the server. However, I do not know what NCBI's
-    rate limit is; I simply set up the program to wait 2-4 seconds
-    between each request. If you need the program to be more efficient,
-    you can contact NCBI about their EUtility programs at
-    eutilities@ncbi.nlm.nih.gov. For more information visit
-    https://www.ncbi.nlm.nih.gov/books/NBK25500/. If their rate limit
-    allows for shorter wait times, you can edit the sleep times in
-    lines 162 and 260 to make this program run faster.
+DURATION: This program may take around 11 minutes to run. This is due
+    in part to the sleep time built in between each GET request to
+    avoid overloading the server. I set up the program to wait 0.5
+    seconds between each request, which is slightly longer than the
+    NCBI minimum recommended here:
+    https://www.ncbi.nlm.nih.gov/books/NBK25497/.
 
 USER ACTION ITEMS: Users need to do the following:
-    1) Specify where to save the CSV file (see lines 84-86).
+    1) Specify where to save the CSV file (see lines 77-79).
     2) Indicate which MeSH they want the program to look at
-        intersections with health personnel subsets for (see lines 88-
-        92).
+        intersections with health personnel subsets for (see lines 81-
+        85).
     3) Determine whether they need to change the first year of
-        literature for the program to search (see lines 94-111).
+        literature for the program to search (see lines 87-104).
     4) (Optional) Decide if they want to override the default for the
         last year of literature for the program to search. The default
         is the last year that has been completed for at least three
-        months (see lines 120-127)."""
+        months (see lines 113-120)."""
 
 # Import libraries.
 
@@ -69,9 +65,6 @@ import os
     # dictionaries that the for loop produces. The dataframe is what
     # gets written to the CSV file.
 import pandas as pd
-# The random module is used to randomize the duration of time between
-    # GET requests.
-import random
 # The requests module is used to connect to the internet and submit a
     # GET request to each URL that this program creates.
 import requests
@@ -122,9 +115,9 @@ To make years more comparable, the default end year is the most
     months. That allows some time for literature published toward the
     end of the year to be indexed in MEDLINE and tagged with MeSH.
 If you prefer a different end year, remove the hash and space from the
-    beginning of line 127 and replace the value with the last year of
+    beginning of line 120 and replace the value with the last year of
     literature you want to be searched."""
-# end_year = 2000 # Custom end year (see lines 120-126)
+# end_year = 2000 # Custom end year (see lines 113-119)
 
 # Get total MEDLINE citation counts for each year.
 
@@ -135,7 +128,7 @@ yr_url_pt_1 = "".join([
     "https://eutils.ncbi.nlm.nih.gov/",
     "entrez/eutils/esearch.fcgi?db=pubmed&term="])
 # yr_url_pt_2 is the publication year. It will be added in the for loop
-    # that begins in line 146.
+    # that begins in line 139.
 # Add the field code for the publication year.
 yr_url_pt_3 = "[pdat]"
 
@@ -156,10 +149,10 @@ for yr in range(start_year, end_year + 1):
     # Scrape the value of the "Count" attribute.
     medline_count = int(yr_soup.find("Count").text)
     # Create a dictionary with the year as the key and the MEDLINE
-        # count as the value. Add it to the list created in line 143.
+        # count as the value. Add it to the list created in line 136.
     yr_counts.append({"year": yr, "total_citations": medline_count})
     # Wait 2-4 seconds to avoid flooding the server.
-    time.sleep(random.randint(2, 4))
+    time.sleep(0.5)
 
 # Create a list of MeSH that includes "Health Personnel" and all
     # headings that are 1-2 levels below it.
@@ -204,7 +197,7 @@ x_url_pt_1 = "".join([
     "https://eutils.ncbi.nlm.nih.gov/",
     "entrez/eutils/esearch.fcgi?db=pubmed&term=\""])
 # x_url_pt_2 will be added from the hp_subsets in the for loop
-    # that begins in line 224.
+    # that begins in line 217.
 x_url_pt_3 = "".join([
     # Add field code and Boolean operator.
     "[mh]+AND+\"",
@@ -213,7 +206,7 @@ x_url_pt_3 = "".join([
     # Add field code and Boolean operator.
     "[mh]+AND+"])
 # x_url_pt_4 is the publication year. It will be added in the for loop
-    # that begins in line 224.
+    # that begins in line 217.
 # Add the field code for the publication year.
 x_url_pt_5 = "[pdat]"
 
@@ -257,7 +250,7 @@ for subset in hp_subsets:
         except:
             continue
         # Wait 2-4 seconds to avoid flooding the server.
-        time.sleep(random.randint(2, 4))
+        time.sleep(0.5)
 
 # Create a filename.
 filename = "".join([

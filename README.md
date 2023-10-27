@@ -21,11 +21,13 @@ These programs produce CSV files with data on the number of "intersecting citati
 
 The data produced by these programs might serve as a proxy for interest or publication activity. One potential use case might be to see when interest in a particular intersection has peaked and waned, to consider what world events might have contributed to that, and to identify areas for further investigation.
 
+Note that approximate durations below assume the default start and end years and were measured in October 2023. Changing the start or end years will change the duration.
+
 #### [mesh-intersections.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections.py "medline-trends/mesh-intersections.py at main • crowtherln/medline-trends")
 
 * Intersections investigated: 2 user-selected MeSH
 * Lines of code to edit: 3-5
-* Approximate duration: 3 minutes if the default start year is used
+* Approximate duration: 3 minutes
 
 #### [mesh-intersections_physicians.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections_physicians.py "medline-trends/mesh-intersections_physicians.py at main • crowtherln/medline-trends")
 

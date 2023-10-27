@@ -19,7 +19,12 @@ NLM uses Medical Subject Headings (MeSH) as controlled vocabulary to index its c
 
 These programs produce CSV files with data on the number of "intersecting citations" from each year—that is, the number of MEDLINE-indexed citations from the year that were tagged with combinations of specific MeSH. However, this variable alone can be misleading. Later years tend to have more MEDLINE-indexed citations than earlier years. For example, there are 219,000 MEDLINE-indexed citations from 1970 but 1.639 million from 2020. To filter out some of the noise from changes in MEDLINE indexing volumes, I added a field for the number of intersecting citations per 1,000 total MEDLINE-indexed citations from a given year.
 
-The data produced by these programs might serve as a proxy for interest or publication activity. One potential use case might be to see when interest in a particular intersection has peaked and waned, to consider what world events might have contributed to that, and to identify areas for further investigation.
+The data produced by these programs might serve as a proxy for interest or publication activity.
+
+Potential use cases:
+
+* Comparing medical specialties
+* Seeing when interest in a particular intersection has peaked and waned, considering what world events might have contributed to that, and identifying areas for further investigation
 
 Note that approximate durations below assume the default start and end years and were measured in October 2023. Changing the start or end years will change the duration.
 
@@ -43,5 +48,12 @@ Note that approximate durations below assume the default start and end years and
 * Lines of code to edit: 2–4
 * Default years covered: 2017–last year\*
 * Approximate duration: 11 minutes
+
+#### [mesh-intersections_medicine.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections_medicine.py "medline-trends/mesh-intersections_medicine.py at main • crowtherln/medline-trends")
+
+* Intersections investigated: 1 user-selected MeSH with "[Medicine](https://www.ncbi.nlm.nih.gov/mesh/68008511 "Medicine - MeSH - NCBI")" and all 110 MeSH 1-2 levels under it
+* Lines of code to edit: 2–4
+* Default years covered: 2009–last year\*
+* Approximate duration: 30 minutes
 
 \* More precisely, the end year for these programs is the most recent year that has been completed for at least three months. This allows some time for literature published toward the end of the year to be indexed in MEDLINE and tagged with MeSH and makes years more comparable.

@@ -41,6 +41,6 @@ The values produced by these programs might serve as a proxy for interest or pub
 
 #### [mesh-intersections_health-personnel.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections_health-personnel.py "medline-trends/mesh-intersections_health-personnel.py at main • crowtherln/medline-trends")
 
-* Intersections investigated: 1 user-selected MeSH with "[Health Personnel](https://www.ncbi.nlm.nih.gov/mesh/68006282) "Health Personnel - MeSH - NCBI")" and all 95 MeSH 1-2 levels under it
+* Intersections investigated: 1 user-selected MeSH with "[Health Personnel](https://www.ncbi.nlm.nih.gov/mesh/68006282 "Health Personnel - MeSH - NCBI")" and all 95 MeSH 1-2 levels under it
 * Lines of code to edit: 2-4
 * Approximate duration: 11 minutes

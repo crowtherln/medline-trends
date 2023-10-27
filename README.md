@@ -15,17 +15,11 @@ NLM uses Medical Subject Headings (MeSH) as controlled vocabulary to index its c
 
 ## Programs
 
-## mesh-intersections
+### mesh-intersections
 
-These programs find how many MEDLINE-indexed citations from each year were tagged with combinations of specific MeSH. They produce CSV files with data like the following:
+These programs produce CSV files with data on the number of "intersecting citations" from each year—that is, the number of MEDLINE-indexed citations from the year that were tagged with combinations of specific MeSH. However, this variable alone can be misleading. Later years tend to have more MEDLINE-indexed citations than earlier years. For example, there are 219,000 MEDLINE-indexed citations from 1970 but 1.639 million from 2020. To filter out some of the noise from changes in MEDLINE indexing volumes, I added a field for the number of intersecting citations per 1,000 total MEDLINE-indexed citations from a given year.
 
-* The year of publication
-* The number of "intersecting citations"—that is, the number of MEDLINE-indexed citations from that year that were tagged with both specified MeSH
-* The number of intersecting citations per 1,000 total MEDLINE-indexed citations that year (In general, the number of MEDLINE-indexed citations has increased year over year. For example, there are 219,000 MEDLINE-indexed citations from 1970 but 1.639 million from 2020. As a result, looking solely at the number of intersecting citations may be misleading. This field was added to provide a better sense of trends at an intersection while filtering out some of the noise from changes in MEDLINE indexing volumes.)
-* The total number of MEDLINE citations indexed that year
-* In cases where the program provides one of the MeSH at the intersection, the CSV file also includes a field for the program-provided MeSH. For example, with [mesh-intersections_physician-subsets.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections_physician-subsets.py "medline-trends/mesh-intersections_physician-subsets.py at main • crowtherln/medline-trends"), the user provides only one MeSH, which is then intersected with "[Physicians](https://www.ncbi.nlm.nih.gov/mesh/68010820 "Physicians - MeSH - NCBI")" and all MeSH one level under "Physicians."
-
-The values produced by these programs might serve as a proxy for interest or publication activity. One potential use case might be to see when interest in a particular intersection has peaked and waned, to consider what world events might have contributed to that, and to identify areas for further investigation.
+The data produced by these programs might serve as a proxy for interest or publication activity. One potential use case might be to see when interest in a particular intersection has peaked and waned, to consider what world events might have contributed to that, and to identify areas for further investigation.
 
 #### [mesh-intersections.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections.py "medline-trends/mesh-intersections.py at main • crowtherln/medline-trends")
 

@@ -49,7 +49,7 @@ Note that approximate durations below assume the default start and end years and
 
 #### [mesh-intersections_medicine.py](https://github.com/crowtherln/medline-trends/blob/main/mesh-intersections_medicine.py "medline-trends/mesh-intersections_medicine.py at main • crowtherln/medline-trends")
 
-* Intersections investigated: 1 user-selected MeSH with "[Medicine](https://www.ncbi.nlm.nih.gov/mesh/68008511 "Medicine - MeSH - NCBI")" and all 110 MeSH 1-2 levels under it
+* Intersections investigated: 1 user-selected MeSH with "[Medicine](https://www.ncbi.nlm.nih.gov/mesh/68008511 "Medicine - MeSH - NCBI")" and all 110 MeSH 1-2 levels under it. Many of these MeSH are medical specialties.
 * Lines of code to edit: 2–4
 * Default years covered: 2009–last year\*
 * Approximate duration: 30 minutes

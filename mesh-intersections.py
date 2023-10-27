@@ -23,26 +23,22 @@ SUMMARY: This program determines how much MEDLINE-indexed literature
     citations.
 
 DURATION: For a pair of MeSH going back to 1966, this program may take
-    around 6-8 minutes to run. This is primarily due to the sleep time
+    around 3 minutes to run. This is primarily due to the sleep time
     built in between each GET request to avoid overloading the server.
-    However, I do not know what NCBI's rate limit is; I simply set up
-    the program to wait 2-4 seconds between each request. If you need
-    the program to be more efficient, you can contact NCBI about their
-    EUtility programs at eutilities@ncbi.nlm.nih.gov. For more
-    information visit https://www.ncbi.nlm.nih.gov/books/NBK25500/. If
-    their rate limit allows for shorter wait times, you can edit the
-    sleep times in lines 172 and 198 to make this program run faster.
+    I set up the program to wait 0.5 seconds between each request,
+    which is slightly longer than the NCBI minimum recommended here:
+    # https://www.ncbi.nlm.nih.gov/books/NBK25497/.
 
 USER ACTION ITEMS: Users need to do the following:
-    1) Specify where to save the CSV file (see lines 73-75).
+    1) Specify where to save the CSV file (see lines 66-68).
     2) Indicate which two MeSH they want the program to look at (see
-        lines 77-82).
+        lines 70-75).
     3) Determine whether they need to change the first year of
-        literature for the program to search (see lines 84-107).
+        literature for the program to search (see lines 77-100).
     4) (Optional) Decide if they want to override the default for the
         last year of literature for the program to search. The default
         is the last year that has been completed for at least three
-        months (see lines 116-123)."""
+        months (see lines 109-116)."""
 
 # Import libraries.
 
@@ -58,9 +54,6 @@ import os
     # dictionaries that the for loop produces. The dataframe is what
     # gets written to the CSV file.
 import pandas as pd
-# The random module is used to randomize wait times between GET
-    # requests.
-import random
 # The requests module is used to connect to the internet and submit a
     # GET request to each URL that this program creates.
 import requests
@@ -118,9 +111,9 @@ To make years more comparable, the default end year is the most
     months. That allows some time for literature published toward the
     end of the year to be indexed in MEDLINE and tagged with MeSH.
 If you prefer a different end year, remove the hash and space from the
-    beginning of line 123 and replace the value with the last year of
+    beginning of line 116 and replace the value with the last year of
     literature you want to be searched."""
-# end_year = 2000 # Custom end year (see lines 116-122)
+# end_year = 2000 # Custom end year (see lines 109-115)
 
 # Build the components for the intersection URLs.
 x_url_pt_1 = "".join([
@@ -137,7 +130,7 @@ x_url_pt_1 = "".join([
     # Add field code and Boolean operator.
     "[mh]+AND+"])
 # x_url_pt_2 is the publication year. It will be added in the for loop
-    # that begins in line 159.
+    # that begins in line 152.
 # Add the field code for the publication year.
 x_url_pt_3 = "[pdat]"
 
@@ -148,7 +141,7 @@ yr_url_pt_1 = "".join([
     "https://eutils.ncbi.nlm.nih.gov/",
     "entrez/eutils/esearch.fcgi?db=pubmed&term="])
 # yr_url_pt_2 is the publication year. It will be added in the for loop
-    # that begins in line 159.
+    # that begins in line 152.
 # Add the field code for the publication year.
 yr_url_pt_3 = "[pdat]"
 
@@ -168,8 +161,8 @@ for yr in range(start_year, end_year + 1):
     yr_soup = BeautifulSoup(yr_data, features = "xml")
     # Scrape the value of the "Count" attribute.
     medline_count = int(yr_soup.find("Count").text)
-    # Wait 2-4 seconds to avoid flooding the server.
-    time.sleep(random.randint(2,4))
+    # Wait 0.5 seconds to avoid overloading the server.
+    time.sleep(0.5)
     # Put the URL together to search for data on citations from the
         # indicated year that are indexed with both specified MeSH.
     x_url = "".join([x_url_pt_1, str(yr), x_url_pt_3])
@@ -182,7 +175,7 @@ for yr in range(start_year, end_year + 1):
     # Scrape the value of the "Count" attribute.
     x_count = int(x_soup.find("Count").text)
     # Create a dictionary for the values you want to add to the CSV
-        # file. Add the dictionary to the list created in line 156.
+        # file. Add the dictionary to the list created in line 149.
     mesh_intersections.append({
         # Indicate the year the cited documents were published.
         "publication_year": yr,
@@ -193,9 +186,9 @@ for yr in range(start_year, end_year + 1):
         # Note how many MEDLINE-indexed citations that include both
             # MeSH there were per 1,000 total MEDLINE citations.
         "intersecting_citations_per_1k": round(
-            x_count / medline_count * 1000, 2)})
-    # Wait 2-4 seconds to avoid flooding the server.
-    time.sleep(random.randint(2,4))
+            x_count / medline_count * 1000, 4)})
+    # Wait 0.5 seconds to avoid overloading the server.
+    time.sleep(0.5)
 
 # Create a filename.
 filename = "".join([

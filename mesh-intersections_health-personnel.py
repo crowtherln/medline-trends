@@ -252,9 +252,13 @@ for subset in hp_subsets:
         # Wait 2-4 seconds to avoid flooding the server.
         time.sleep(0.5)
 
+# Format the user-selected MeSH for the filename by making it lowercase
+    # and replacing any spaces with hyphens.
+fn_mesh = mesh.replace(" ", "-").lower()
+
 # Create a filename.
 filename = "".join([
-    f"Health Personnel_AND_{mesh}_{start_year}-{end_year}_",
+    f"health-personnel_{fn_mesh}_{start_year}-{end_year}_",
     str(today.year), "-", "{:02d}".format(today.month), "-", 
     "{:02d}".format(today.day), ".csv"])
 

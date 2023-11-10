@@ -190,9 +190,14 @@ for yr in range(start_year, end_year + 1):
     # Wait 0.5 seconds to avoid overloading the server.
     time.sleep(0.5)
 
+# Format the user-selected MeSH for the filename by making them
+    # lowercase and replacing any spaces with hyphens.
+fn_mesh_1 = mesh_1.replace(" ", "-").lower()
+fn_mesh_2 = mesh_2.replace(" ", "-").lower()
+
 # Create a filename.
 filename = "".join([
-    f"{mesh_1}-AND-{mesh_2}_{start_year}-{end_year}_",
+    f"{fn_mesh_1}_{fn_mesh_2}_{start_year}-{end_year}_",
     str(today.year), "-", "{:02d}".format(today.month), "-", 
     "{:02d}".format(today.day), ".csv"])
 

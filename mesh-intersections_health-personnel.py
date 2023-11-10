@@ -78,8 +78,8 @@ import time
     # backslashes between each folder or drive.
 path = "C:\\\\Users\\\\rastley\\\\Downloads"
 
-# Specify which MeSH for which you want to see data on intersections
-    # with physician subsets. You can search for MeSH here:
+# Specify the MeSH for which you want to see data on intersections with
+    # physician subsets. You can search for MeSH here:
     # https://www.ncbi.nlm.nih.gov/mesh/. Make sure to keep the MeSH
     # within quotation marks.
 mesh = "Socioeconomic Factors"

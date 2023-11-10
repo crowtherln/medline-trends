@@ -79,7 +79,7 @@ import time
 path = "C:\\\\Users\\\\rastley\\\\Downloads"
 
 # Specify the MeSH for which you want to see data on intersections with
-    # physician subsets. You can search for MeSH here:
+    # subsets of "Medicine." You can search for MeSH here:
     # https://www.ncbi.nlm.nih.gov/mesh/. Make sure to keep the MeSH
     # within quotation marks.
 mesh = "Quality of Health Care"

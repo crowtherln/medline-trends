@@ -54,4 +54,12 @@ Note that approximate durations below assume the default start and end years and
 * Default years covered: 2009–last year\*
 * Approximate duration: 30 minutes
 
+| Program              | User MeSH | Program MeSH | Edits | Start | Calls  | Duration |
+| -------------------- | ---------:| ------------:| -----:| -----:| ------:| --------:|
+| MeSH intersections   | 2         | 0            | 3–5   | 1966  | 114    | 0:03     |
+| Physicians           | 1         | 31           | 2–4   | 2017  | 192    | 0:04     |
+| Health personnel     | 1         | 96           | 2–4   | 2017  | 582    | 0:11     |
+| Medicine             | 1         | 111          | 2–4   | 2009  | 1,568  | 0:30     |
+| Geographic locations | 1         | 225          | 2–4   | 1966  | 12,882 | 3:45     |
+
 \* More precisely, the end year for these programs is the most recent year that has been completed for at least three months. This allows some time for literature published toward the end of the year to be indexed in MEDLINE and tagged with MeSH and makes years more comparable.
